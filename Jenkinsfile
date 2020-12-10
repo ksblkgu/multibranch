@@ -4,27 +4,21 @@ pipeline {
         skipDefaultCheckout()
     }
     stages {
-        stage("Checkout") {
-            step {
+        stage('Checkout') {
+            steps {
                 checkout(changelog: false, poll: false, scm: [
                     $class: 'GitSCM',
-                    branches: [
-                        [name: 'master'],
-                    ],
+                    branches: scm.branches,
                     doGenerateSubmoduleConfigurations: false,
-                    extensions: [
-                        [
-                            $class: 'RelativeTargetDirectory',
-                            relativeTargetDir: 'src',
-                        ],
-                    ],
+                    extensions: [[$class: 'SubmoduleOption',
+                                      disableSubmodules: false,
+                                      parentCredentials: false,
+                                      recursiveSubmodules: true,
+                                      reference: '',
+                                      trackingSubmodules: false]],
                     submoduleCfg: [],
-                    userRemoteConfigs: [
-                        [
-                            url: 'https://github.com/ksblkgu/multibranch'
-                        ],
-                    ],
-                ])
+                    userRemoteConfigs: scm.userRemoteConfigs
+                    ])
             }
         }
     }
