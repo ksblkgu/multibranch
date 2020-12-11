@@ -1,6 +1,6 @@
 import requests
 from requests.exceptions import HTTPError
-# tsettest
+# tsetteste3
 for url in ['https://api.github.com', 'https://api.github.com/invalid']:
     try:
         response = requests.get(url)
