@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout(changelog: false, poll: false, scm: [
+                checkout(changelog: false, poll: true, scm: [
                     $class: 'GitSCM',
                     branches: scm.branches,
                     doGenerateSubmoduleConfigurations: false,
